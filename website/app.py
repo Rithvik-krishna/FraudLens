@@ -15,6 +15,11 @@ def load_data():
     try:
         url = "https://drive.google.com/uc?id=1Qunc39H0nwcuMEq-CTtRvko3mwvoNZUS"
         df = pd.read_csv(url)
+
+        # Fix column name
+        if 'Class' in df.columns:
+            df.rename(columns={'Class': 'Fraud'}, inplace=True)
+
         return df
     except Exception as e:
         return None
