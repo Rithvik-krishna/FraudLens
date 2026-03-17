@@ -127,7 +127,7 @@ An interactive dashboard built using Streamlit to:
 ### 1. Clone the repository
 
 ```
-git clone <your-repo-link>
+git clone <https://github.com/Rithvik-krishna/FraudLens.git>
 cd FraudLens
 ```
 
