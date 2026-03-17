@@ -16,12 +16,16 @@ def load_data():
         url = "https://drive.google.com/uc?id=1Qunc39H0nwcuMEq-CTtRvko3mwvoNZUS"
         df = pd.read_csv(url)
 
-        # Fix column name
+        # Normalize column names
+        df.columns = df.columns.str.strip()
+
+        # Handle both possible column names
         if 'Class' in df.columns:
             df.rename(columns={'Class': 'Fraud'}, inplace=True)
 
         return df
     except Exception as e:
+        st.error(f"Error loading data: {e}")
         return None
 
 df = load_data()
@@ -71,24 +75,30 @@ elif page == "Data Overview":
     st.divider()
 
     if df is None:
-        st.error("Dataset failed to load. Check internet or Google Drive link.")
+        st.error("Dataset failed to load.")
     else:
-        fraud_count = int(df['Fraud'].sum())
-        total = len(df)
-        fraud_percent = (fraud_count / total) * 100
+        # 🔥 Debug (remove later if you want)
+        st.write("Columns in dataset:", df.columns.tolist())
 
-        col1, col2, col3 = st.columns(3)
-        col1.metric("Total Transactions", f"{total:,}")
-        col2.metric("Fraud Cases", f"{fraud_count:,}")
-        col3.metric("Fraud %", f"{fraud_percent:.4f}%")
+        if 'Fraud' not in df.columns:
+            st.error("Fraud column not found in dataset.")
+        else:
+            fraud_count = int(df['Fraud'].sum())
+            total = len(df)
+            fraud_percent = (fraud_count / total) * 100
 
-        st.divider()
+            col1, col2, col3 = st.columns(3)
+            col1.metric("Total Transactions", f"{total:,}")
+            col2.metric("Fraud Cases", f"{fraud_count:,}")
+            col3.metric("Fraud %", f"{fraud_percent:.4f}%")
 
-        st.write("### Dataset Preview")
-        st.dataframe(df.head())
+            st.divider()
 
-        st.write("### Class Distribution")
-        st.bar_chart(df['Fraud'].value_counts())
+            st.write("### Dataset Preview")
+            st.dataframe(df.head())
+
+            st.write("### Class Distribution")
+            st.bar_chart(df['Fraud'].value_counts())
 
 # -------------------- ANALYSIS --------------------
 elif page == "Analysis":
