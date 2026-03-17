@@ -1,0 +1,7 @@
+# Ignore large datasets
+raw_data/creditcard.csv
+processed_data/cleaned.csv
+
+# Ignore system files
+__pycache__/
+notebooks/.ipynb_checkpoints/

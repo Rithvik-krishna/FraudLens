@@ -25,6 +25,17 @@ FraudLens addresses this by using anomaly detection and data-driven insights.
 * **Features:** 31
 * **Fraud Rate:** ~0.17%
 
+## Dataset Note
+
+Due to GitHub file size limitations, the dataset is not included in this repository.
+
+You can download it from:
+https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
+
+After downloading:
+- Place `creditcard.csv` inside `raw_data/`
+- Run the notebook to generate `cleaned.csv`
+
 ### Features:
 
 * `Time` — seconds elapsed
